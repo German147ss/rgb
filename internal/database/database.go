@@ -6,9 +6,9 @@ import (
 
 func NewDBOptions() *pg.Options {
 	return &pg.Options{
-		Addr:     "localhost:5432",
+		Addr:     "localhost:5433",
 		Database: "rgb",
 		User:     "postgres",
-		Password: "postgres",
+		Password: "new_password",
 	}
 }
