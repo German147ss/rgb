@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 
+	"rgb/internal/conf"
 	"rgb/internal/database"
 	"rgb/internal/store"
 
@@ -26,8 +27,7 @@ Usage:
 func main() {
 	flag.Usage = usage
 	flag.Parse()
-
-	store.SetDBConnection(database.NewDBOptions())
+	store.SetDBConnection(database.NewDBOptions(conf.NewConfig()))
 	db := store.GetDBConnection()
 
 	oldVersion, newVersion, err := migrations.Run(db, flag.Args()...)

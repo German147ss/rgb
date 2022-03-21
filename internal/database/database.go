@@ -1,14 +1,16 @@
 package database
 
 import (
+	"rgb/internal/conf"
+
 	"github.com/go-pg/pg/v10"
 )
 
-func NewDBOptions() *pg.Options {
+func NewDBOptions(cfg conf.Config) *pg.Options {
 	return &pg.Options{
-		Addr:     "localhost:5433",
-		Database: "rgb",
-		User:     "postgres",
-		Password: "new_password",
+		Addr:     cfg.DbHost + ":" + cfg.DbPort,
+		Database: cfg.DbName,
+		User:     cfg.DbUser,
+		Password: cfg.DbPassword,
 	}
 }
