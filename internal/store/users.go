@@ -60,3 +60,11 @@ func GenerateSalt() ([]byte, error) {
 	}
 	return salt, nil
 }
+
+func GetUsers() (*[]User, error) {
+	usersPtr := new([]User)
+	if err := db.Model(usersPtr).Select(); err != nil {
+		return nil, err
+	}
+	return usersPtr, nil
+}

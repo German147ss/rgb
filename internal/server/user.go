@@ -42,3 +42,14 @@ func signIn(ctx *gin.Context) {
 		"jwt": "123456789",
 	})
 }
+
+func getUsers(ctx *gin.Context) {
+	users, err := store.GetUsers()
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Sign in failed."})
+		return
+	}
+	ctx.JSON(http.StatusOK, gin.H{
+		"users": users,
+	})
+}

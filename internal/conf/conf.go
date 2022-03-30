@@ -66,7 +66,7 @@ func NewConfig() Config {
 		logAndPanic(dbPasswordKey)
 	}
 
-	return Config{
+	config := Config{
 		Host:       host,
 		Port:       port,
 		DbHost:     dbHost,
@@ -75,6 +75,8 @@ func NewConfig() Config {
 		DbUser:     dbUser,
 		DbPassword: dbPassword,
 	}
+	log.Println("Config Values set correctly", config)
+	return config
 }
 
 func logAndPanic(envVar string) {
