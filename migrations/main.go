@@ -27,7 +27,7 @@ Usage:
 func main() {
 	flag.Usage = usage
 	flag.Parse()
-	store.SetDBConnection(database.NewDBOptions(conf.NewConfig()))
+	store.SetDBConnection(database.NewDBOptions(conf.GetHardCodedConfig()))
 	db := store.GetDBConnection()
 
 	oldVersion, newVersion, err := migrations.Run(db, flag.Args()...)

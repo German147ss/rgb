@@ -14,6 +14,7 @@ const (
 	dbNameKey     = "RGB_DB_NAME"
 	dbUserKey     = "RGB_DB_USER"
 	dbPasswordKey = "RGB_DB_PASSWORD"
+	jwtSecretKey  = "RGB_JWT_SECRET"
 )
 
 type Config struct {
@@ -24,6 +25,7 @@ type Config struct {
 	DbName     string
 	DbUser     string
 	DbPassword string
+	JwtSecret  string
 }
 
 func NewConfig() Config {
@@ -66,6 +68,11 @@ func NewConfig() Config {
 		logAndPanic(dbPasswordKey)
 	}
 
+	jwtSecret, ok := os.LookupEnv(jwtSecretKey)
+	if !ok || jwtSecret == "" {
+		logAndPanic(jwtSecretKey)
+	}
+
 	config := Config{
 		Host:       host,
 		Port:       port,
@@ -74,6 +81,7 @@ func NewConfig() Config {
 		DbName:     dbName,
 		DbUser:     dbUser,
 		DbPassword: dbPassword,
+		JwtSecret:  jwtSecret,
 	}
 	log.Println("Config Values set correctly", config)
 	return config
@@ -82,4 +90,17 @@ func NewConfig() Config {
 func logAndPanic(envVar string) {
 	log.Println("ENV variable not set or value not valid: ", envVar)
 	panic(envVar)
+}
+
+func GetHardCodedConfig() Config {
+	return Config{
+		Host:       "0.0.0.0",
+		Port:       "8080",
+		DbHost:     "localhost",
+		DbPort:     "5433",
+		DbName:     "rgb",
+		DbUser:     "postgres",
+		DbPassword: "new_password",
+		JwtSecret:  "jwtSecret123",
+	}
 }
